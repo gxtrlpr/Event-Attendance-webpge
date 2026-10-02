@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCSJDM Student Event Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a class="logo-container" href="https://ccsjdm.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the City College of San Jose del Monte website">
+            <img class="logo" src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte official seal">
+            <span class="brand-title">CCSJDM Student Event Hub</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html" class="active">Home</a>
+            <a href="events.html">Events</a>
+            <a href="my-events.html">My Schedule</a>
+            <span class="nav-auth-area" id="navAuthArea"></span>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <div class="user-greeting" id="userGreeting" hidden></div>
+                    <span class="hero-eyebrow">City College of San Jose del Monte</span>
+                    <h1>Student Event &amp; Attendance Hub</h1>
+                    <p class="hero-lead">One place to discover campus events, reserve your slot, and have your attendance recorded digitally. No paper sign-up sheets, no long queues, and no lost attendance records.</p>
+                    <div class="hero-actions">
+                        <a href="events.html" class="btn-primary btn-hero">Browse Upcoming Events</a>
+                        <a href="my-events.html" class="btn-secondary btn-hero">View My Schedule</a>
+                    </div>
+                    <p class="hero-note">Students do not need an account. Registration takes less than a minute.</p>
+                </div>
+                <div class="hero-brand">
+                    <img src="assets/ccsjdm-wordmark.jpeg" alt="City College of San Jose del Monte">
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+
+            <section class="home-stats">
+                <div class="home-stat">
+                    <span class="home-stat-num" id="homeEventCount">0</span>
+                    <span class="home-stat-label">Upcoming Events</span>
+                </div>
+                <div class="home-stat">
+                    <span class="home-stat-num" id="homeSlotCount">0</span>
+                    <span class="home-stat-label">Slots Available</span>
+                </div>
+                <div class="home-stat">
+                    <span class="home-stat-num" id="homeOrgCount">0</span>
+                    <span class="home-stat-label">Student Organizations</span>
+                </div>
+            </section>
+
+            <section class="home-section">
+                <h2>What this website is for</h2>
+                <p class="section-lead">The Student Event Hub was built to replace manual event sign-ups and paper attendance sheets used during seminars, orientations, workshops, and cultural programs at CCSJDM. Student organizations publish their events here, students reserve a slot online, and attendance is confirmed at the venue using the student's ID number.</p>
+
+                <div class="purpose-grid">
+                    <article class="purpose-card">
+                        <div class="purpose-icon">&#128197;</div>
+                        <h3>Discover Events</h3>
+                        <p>Browse every approved campus event in one directory. Filter by category, organization, or schedule so you only see what is relevant to you.</p>
+                    </article>
+                    <article class="purpose-card">
+                        <div class="purpose-icon">&#128221;</div>
+                        <h3>Reserve a Slot</h3>
+                        <p>Fill out a short registration form to secure your seat. Slot limits are enforced automatically, so an event can never be overbooked.</p>
+                    </article>
+                    <article class="purpose-card">
+                        <div class="purpose-icon">&#9989;</div>
+                        <h3>Digital Attendance</h3>
+                        <p>Give your student ID number at the venue and the host records your attendance instantly. Your history stays saved under My Schedule.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="home-section">
+                <h2>How it works</h2>
+                <ol class="steps-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div>
+                            <h4>Find an event</h4>
+                            <p>Open the Events page and search or filter the directory for an activity you want to join.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div>
+                            <h4>Submit the registration form</h4>
+                            <p>Enter your name, student ID number, and course. Your reservation is confirmed the moment you submit.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div>
+                            <h4>Attend and get verified</h4>
+                            <p>On event day, give your student ID number to the host at the entrance to be marked as attended.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <div>
+                            <h4>Track your record</h4>
+                            <p>Check My Schedule anytime to review upcoming reservations and your past attendance history.</p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="home-section">
+                <h2>Featured this month</h2>
+                <div class="events-grid" id="featuredEventsGrid"></div>
+                <div class="home-cta">
+                    <a href="events.html" class="btn-primary">See All Events</a>
+                </div>
+            </section>
+
+            <section class="info-split">
+                <div class="info-split-text">
+                    <h2>For student organizations</h2>
+                    <p>Accredited organizations and offices manage their activities through the Host Dashboard. Hosts can publish events, monitor registrations in real time, record attendance at the venue, and review attendance reports afterwards.</p>
+                    <p class="info-note">The Host Dashboard requires host credentials and is available on desktop computers only.</p>
+                    <a href="officer.html" class="btn-outline-primary">Go to Host Dashboard</a>
+                </div>
+                <div class="info-split-seal">
+                    <img src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte seal">
+                    <p>Established 2017</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CCSJDM Student Event Hub. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
