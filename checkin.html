@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Check-in Desk | Appointments and schedules</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <header class="navbar">
+        <a class="logo-container" href="https://ccsjdm.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the City College of San Jose del Monte website">
+            <img class="logo" src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte official seal">
+            <span class="brand-title">Appointments and schedules</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html">Appointments</a>
+            <a href="events.html">Events</a>
+            <a href="my-events.html">My Schedule</a>
+            <span class="nav-auth-area" id="navAuthArea"></span>
+        </nav>
+    </header>
+
+    <main class="container" id="mainContent">
+
+        <div id="reminderBannerSlot"></div>
+
+        <div class="desktop-only-notice" id="desktopOnlyNotice">
+            <div class="notice-icon">&#128421;&#65039;</div>
+            <h2>Desktop Access Only</h2>
+            <p>The Check-in Desk is only available on a computer screen. Please open this page on a desktop or laptop to record attendance.</p>
+            <a href="index.html" class="btn-primary">Back to Home</a>
+        </div>
+
+        <section class="login-gate" id="hostLoginGate">
+            <div class="login-card">
+                <div class="login-card-icon">&#128274;</div>
+                <h2>Restricted Area</h2>
+                <p class="login-card-text" id="hostGateMessage">You need to be a host to access this. Please log in.</p>
+                <button type="button" class="btn-primary btn-block" id="openLoginModalBtn">Login</button>
+                <a href="index.html" class="btn-secondary btn-block">Back to Home</a>
+            </div>
+        </section>
+
+        <div id="checkinMain" hidden>
+        <div class="checkin-toolbar">
+            <a href="officer.html" class="btn-secondary btn-sm">&#8592; Back to Host Dashboard</a>
+            <div class="checkin-toolbar-right">
+                <span class="host-badge" id="hostUserBadge">Logged in</span>
+                <button type="button" class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+        <section class="checkin-hero">
+            <div class="checkin-title-area">
+                <h2>&#128241; Real-time Attendance Check-in Desk</h2>
+                <p>Scan a QR code, enter the student's ID number, or search for a student's name to record attendance.</p>
+            </div>
+
+            <div class="checkin-event-selector">
+                <label for="checkinEventSelect"><strong>Select the Active Event:</strong></label>
+                <select id="checkinEventSelect" class="form-control-large" aria-label="Active event"></select>
+            </div>
+        </section>
+
+        <div class="checkin-grid">
+            <div class="card checkin-input-card">
+                <h3>&#128269; Scan or Enter a Student ID</h3>
+
+                <div class="input-tabs" role="tablist" aria-label="Check-in method">
+                    <button class="checkin-tab-btn active" type="button" id="codeModeTab" data-mode="code" role="tab" aria-selected="true" aria-controls="codeModeContent">Student ID / QR</button>
+                    <button class="checkin-tab-btn" type="button" id="manualModeTab" data-mode="manual" role="tab" aria-selected="false" aria-controls="manualModeContent">Manual Search</button>
+                </div>
+
+                <div class="checkin-mode-content" id="codeModeContent" role="tabpanel" aria-labelledby="codeModeTab">
+                    <form id="codeCheckinForm">
+                        <div class="form-group">
+                            <label for="eventCodeInput">Enter the Student ID Number (e.g. 2026-00123):</label>
+                            <div class="input-with-button">
+                                <input type="text" id="eventCodeInput" placeholder="e.g. 2026-00123" required autocomplete="off">
+                                <button type="submit" class="btn-primary">Check In</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="qr-scanner-box">
+                        <div class="scanner-viewfinder">
+                            <div class="scan-line"></div>
+                            <span class="scanner-icon">&#128247;</span>
+                            <p>Simulated QR Camera Scan</p>
+                        </div>
+                        <button class="btn-secondary" id="simulateQrScanBtn">Simulate QR Scan (Random Registrant)</button>
+                    </div>
+                </div>
+
+                <div class="checkin-mode-content" id="manualModeContent" role="tabpanel" aria-labelledby="manualModeTab" hidden>
+                    <div class="form-group">
+                        <label for="manualSearchInput">Student Name or Student ID:</label>
+                        <input type="text" id="manualSearchInput" placeholder="Type a name or 2026-XXXXX..." autocomplete="off">
+                    </div>
+                    <div class="manual-results-container" id="manualResultsContainer"></div>
+                </div>
+
+                <div class="checkin-feedback-box" id="checkinFeedbackBox" hidden>
+                    <div class="feedback-icon" id="feedbackIcon">&#9989;</div>
+                    <div class="feedback-details">
+                        <h4 id="feedbackTitle">Check-in Successful!</h4>
+                        <p id="feedbackText"></p>
+                        <span id="feedbackTime" class="feedback-time"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card checkin-stats-card">
+                <h3>&#128202; Live Event Attendance Stats</h3>
+
+                <div class="live-counter-display">
+                    <div class="counter-item registered">
+                        <span class="counter-num" id="statRegistered">0</span>
+                        <span class="counter-label">Registered</span>
+                    </div>
+                    <div class="counter-item attended">
+                        <span class="counter-num" id="statAttended">0</span>
+                        <span class="counter-label">Attended</span>
+                    </div>
+                    <div class="counter-item late">
+                        <span class="counter-num" id="statLate">0</span>
+                        <span class="counter-label">Late</span>
+                    </div>
+                    <div class="counter-item absent">
+                        <span class="counter-num" id="statAbsent">0</span>
+                        <span class="counter-label">Absent / Unchecked</span>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="attendanceProgressBar"></div>
+                </div>
+                <p class="progress-percentage-text"><span id="attendancePercentText">0%</span> of registered students have attended.</p>
+
+                <div class="quick-walkin-box">
+                    <h4>&#10133; Walk-in Registrant?</h4>
+                    <p>If a student did not register online, they can be added as a walk-in.</p>
+                    <button class="btn-outline-primary" id="openWalkinModalBtn">Add Walk-in</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="event-attendees-section">
+            <h3>Attendees List for This Event</h3>
+            <div class="table-responsive">
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Student ID</th>
+                            <th>Course / Year</th>
+                            <th>Student ID</th>
+                            <th>Status</th>
+                            <th>Check-in Time</th>
+                            <th>Update Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventAttendeesTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+        </div>
+    </main>
+
+    <div class="modal" id="walkinModal" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Walk-in Attendee</h2>
+                <button type="button" class="close-btn" id="closeWalkinModal" aria-label="Close walk-in form">&times;</button>
+            </div>
+            <form id="walkinForm" novalidate>
+                <div class="form-group">
+                    <label for="walkinName">Student Name *</label>
+                    <input type="text" id="walkinName" required placeholder="e.g. Maria Santos">
+                </div>
+                <div class="form-group">
+                    <label for="walkinId">Student ID *</label>
+                    <input type="text" id="walkinId" required placeholder="e.g. 2026-00999">
+                </div>
+                <div class="form-group">
+                    <label for="walkinCourse">Course and Year *</label>
+                    <input type="text" id="walkinCourse" required placeholder="e.g. BSCS 2A">
+                </div>
+                <div class="form-error" id="walkinFormError" hidden></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Check In as Walk-in</button>
+                    <button type="button" class="btn-secondary" id="cancelWalkinModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Appointments and schedules. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="demo-note">Prototype / demo build for a class presentation. No real data is stored.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+</body>
+</html>

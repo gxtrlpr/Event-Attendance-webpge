@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Dashboard | Appointments and schedules</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <header class="navbar">
+        <a class="logo-container" href="https://ccsjdm.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the City College of San Jose del Monte website">
+            <img class="logo" src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte official seal">
+            <span class="brand-title">Appointments and schedules</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html">Appointments</a>
+            <a href="events.html">Events</a>
+            <a href="my-events.html">My Schedule</a>
+            <span class="nav-auth-area" id="navAuthArea"></span>
+        </nav>
+    </header>
+
+    <main class="container" id="mainContent">
+
+        <div id="reminderBannerSlot"></div>
+
+        <div class="desktop-only-notice" id="desktopOnlyNotice">
+            <div class="notice-icon">&#128421;&#65039;</div>
+            <h2>Desktop Access Only</h2>
+            <p>The Host Dashboard is only available on a computer screen. Please open this page on a desktop or laptop to manage events, registrants, and attendance.</p>
+            <a href="index.html" class="btn-primary">Back to Home</a>
+        </div>
+
+        <section class="login-gate" id="hostLoginGate">
+            <div class="login-card">
+                <div class="login-card-icon">&#128274;</div>
+                <h2>Restricted Area</h2>
+                <p class="login-card-text" id="hostGateMessage">You need to be a host to access this. Please log in.</p>
+                <button type="button" class="btn-primary btn-block" id="openLoginModalBtn">Login</button>
+                <a href="index.html" class="btn-secondary btn-block">Back to Home</a>
+            </div>
+        </section>
+
+        <div class="officer-dashboard" id="officerMain" hidden>
+            <section class="dashboard-header">
+                <div>
+                    <h2>Host Dashboard</h2>
+                    <p class="subtitle">Manage appointments, office queues, events, and attendance in one console.</p>
+                </div>
+                <div class="officer-actions-top">
+                    <span class="host-badge" id="hostUserBadge">Logged in as host</span>
+                    <button class="btn-primary" id="openCreateEventModal">+ Create New Event</button>
+                    <a href="checkin.html" class="btn-secondary">Open Event Check-in Desk</a>
+                    <button class="btn-secondary" id="resetDemoDataBtn">Reset demo data</button>
+                    <button class="btn-logout" id="logoutBtn">Logout</button>
+                </div>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">&#128197;</div>
+                    <div class="stat-info">
+                        <h3 id="totalEventsCount">0</h3>
+                        <p>Total Events</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128101;</div>
+                    <div class="stat-info">
+                        <h3 id="totalRegistrantsCount">0</h3>
+                        <p>Total Registrants</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9989;</div>
+                    <div class="stat-info">
+                        <h3 id="totalAttendeesCount">0</h3>
+                        <p>Total Checked-in</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128202;</div>
+                    <div class="stat-info">
+                        <h3 id="attendanceRate">0%</h3>
+                        <p>Attendance Rate</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <section class="host-service-section">
+                <div class="section-header-flex">
+                    <h2>Appointments and Queue</h2>
+                    <div class="host-office-picker">
+                        <label for="hostOfficeSelect">Office</label>
+                        <select id="hostOfficeSelect"></select>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">&#128197;</div>
+                        <div class="stat-info"><h3 id="hostApptToday">0</h3><p>Appointments Today</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">&#127915;</div>
+                        <div class="stat-info"><h3 id="hostQueueWaiting">0</h3><p>Waiting in Queue</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">&#9989;</div>
+                        <div class="stat-info"><h3 id="hostServedToday">0</h3><p>Served Today</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">&#11088;</div>
+                        <div class="stat-info"><h3 id="hostAvgRating">0.0</h3><p>Average Rating</p></div>
+                    </div>
+                </div>
+
+                <div class="tabs-container" role="tablist">
+                    <button class="host-tab-btn active" data-hosttab="appointments" role="tab" aria-selected="true">Appointments</button>
+                    <button class="host-tab-btn" data-hosttab="queue" role="tab" aria-selected="false">Queue Console</button>
+                    <button class="host-tab-btn" data-hosttab="officecheckin" role="tab" aria-selected="false">Office Check-in</button>
+                    <button class="host-tab-btn" data-hosttab="feedback" role="tab" aria-selected="false">Feedback</button>
+                    <button class="host-tab-btn" data-hosttab="reports" role="tab" aria-selected="false">Reports</button>
+                </div>
+
+                <div class="host-tab-content active" id="appointmentsHostTab">
+                    <div class="filter-row">
+                        <label for="hostApptDate">Date</label>
+                        <input type="date" id="hostApptDate">
+                        <label for="hostApptStatus">Status</label>
+                        <select id="hostApptStatus">
+                            <option value="all">All statuses</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Checked In">Checked In</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Missed">Missed</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Student</th>
+                                    <th>Service</th>
+                                    <th>Schedule</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hostAppointmentsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="host-tab-content" id="queueHostTab">
+                    <div class="queue-console" id="queueConsole"></div>
+                </div>
+
+                <div class="host-tab-content" id="officecheckinHostTab">
+                    <div class="checkin-toolbar">
+                        <label for="officeCheckinInput">Appointment reference or student ID</label>
+                        <input type="text" id="officeCheckinInput" placeholder="e.g. APT-2026-0001">
+                        <button type="button" class="btn-primary" id="officeCheckinBtn">Check in</button>
+                    </div>
+                    <div class="checkin-result" id="officeCheckinResult"></div>
+                    <div class="table-responsive">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr><th>Reference</th><th>Student</th><th>Time</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="officeCheckinBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="host-tab-content" id="feedbackHostTab">
+                    <div class="feedback-summary" id="feedbackSummary"></div>
+                    <div class="feedback-list" id="hostFeedbackList"></div>
+                </div>
+
+                <div class="host-tab-content" id="reportsHostTab">
+                    <div class="filter-row no-print">
+                        <label for="reportFrom">From</label>
+                        <input type="date" id="reportFrom">
+                        <label for="reportTo">To</label>
+                        <input type="date" id="reportTo">
+                        <label for="reportType">Type</label>
+                        <select id="reportType">
+                            <option value="all">Appointments and queue</option>
+                            <option value="appointment">Appointments only</option>
+                            <option value="queue">Queue only</option>
+                        </select>
+                        <button type="button" class="btn-secondary" id="applyReportFilters">Apply</button>
+                        <button type="button" class="btn-primary" id="exportReportCsv">Export CSV</button>
+                        <button type="button" class="btn-secondary" id="printReportBtn">Print</button>
+                    </div>
+                    <div class="stats-grid" id="reportSummaryCards"></div>
+                    <div class="report-chart" id="reportChart"></div>
+                    <div class="table-responsive">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr><th>Date</th><th>Type</th><th>Office</th><th>Service</th><th>Student</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="reportTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="events-management-section">
+                <div class="section-header-flex">
+                    <h2>Organization Events</h2>
+                    <div class="search-bar-small">
+                        <input type="text" id="officerSearchInput" placeholder="Search by event or organizer..." aria-label="Search organization events">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Date and Time</th>
+                                <th>Venue</th>
+                                <th>Capacity / Registered</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="officerEventsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="registrants-section">
+                <div class="section-header-flex">
+                    <h2>Registrants List</h2>
+                    <div class="filter-dropdown-group">
+                        <select id="eventFilterSelect" aria-label="Filter registrants by event">
+                            <option value="all">All Events</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Course / Year</th>
+                                <th>Event Title</th>
+                                <th>Student ID</th>
+                                <th>Attendance Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrantsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal" id="createEventModal" hidden>
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Create a New School Event</h2>
+                <button type="button" class="close-btn" id="closeCreateModal" aria-label="Close create event form">&times;</button>
+            </div>
+            <form id="createEventForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="newEventTitle">Event Title *</label>
+                        <input type="text" id="newEventTitle" required placeholder="e.g. CCS Annual IT Summit 2026">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventCategory">Category *</label>
+                        <select id="newEventCategory" required>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Culture">Culture</option>
+                            <option value="Sports">Sports</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventDate">Date *</label>
+                        <input type="date" id="newEventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventTime">Time *</label>
+                        <input type="text" id="newEventTime" required placeholder="e.g. 8:00 AM - 12:00 PM">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventVenue">Venue *</label>
+                        <input type="text" id="newEventVenue" required placeholder="e.g. San Jose Hall">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventOrganizer">Organizer *</label>
+                        <input type="text" id="newEventOrganizer" required value="CCSJDM Student Council">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventCapacity">Participant Limit / Capacity *</label>
+                        <input type="number" id="newEventCapacity" required value="100" min="10" max="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="newEventDeadline">Registration Deadline *</label>
+                        <input type="date" id="newEventDeadline" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="newEventDesc">Event Description *</label>
+                    <textarea id="newEventDesc" rows="3" required placeholder="A short description of the event..."></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="newEventSpeaker">Speaker / Guest</label>
+                    <input type="text" id="newEventSpeaker" placeholder="e.g. Dr. Juan Santos">
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Publish Event</button>
+                    <button type="button" class="btn-secondary" id="cancelCreateModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Appointments and schedules. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="demo-note">Prototype / demo build for a class presentation. No real data is stored.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+</body>
+</html>
