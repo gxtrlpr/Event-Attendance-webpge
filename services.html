@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments | Appointments and schedule</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a class="logo-link" href="https://ccsjdm.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the City College of San Jose del Monte website">
+                <img class="logo" src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte official seal">
+            </a>
+            <span class="brand-title">Appointments and schedule</span>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active">Appointments</a>
+            <a href="events.html">Events</a>
+            <a href="my-events.html">My Schedule</a>
+            <span class="nav-auth-area" id="navAuthArea"></span>
+        </nav>
+    </header>
+
+    <main class="container" id="mainContent">
+
+        <div id="reminderBannerSlot"></div>
+
+        <div class="user-greeting" id="userGreeting" hidden></div>
+
+        <section class="page-heading">
+            <h1>Student Service Directory</h1>
+            <p class="subtitle">Find the right office, check the requirements before you go, then book an appointment or get a digital queue number.</p>
+        </section>
+
+        <section class="search-filter-section">
+            <div class="search-bar">
+                <input type="search" id="serviceSearchInput" placeholder="Search an office, a service, a professor, or a subject" aria-label="Search services">
+                <button type="button" id="serviceSearchBtn">Search</button>
+            </div>
+
+            <div class="directory-tabs" role="tablist" aria-label="Directory type">
+                <button type="button" class="directory-tab active" data-directory="offices" role="tab" aria-selected="true" aria-controls="officePanel">&#127970; School Offices</button>
+                <button type="button" class="directory-tab" data-directory="faculty" role="tab" aria-selected="false" aria-controls="facultyPanel">&#128218; Professors and Faculty</button>
+            </div>
+        </section>
+
+        <section id="officePanel" role="tabpanel">
+            <div class="section-header-flex">
+                <h2>School Offices</h2>
+                <span class="result-count" id="officeResultCount"></span>
+            </div>
+            <div class="office-grid" id="officeGrid"></div>
+        </section>
+
+        <section id="facultyPanel" role="tabpanel" hidden>
+            <div class="section-header-flex">
+                <h2>Professors and Faculty</h2>
+                <div class="directory-filter-row">
+                    <select id="departmentFilter" aria-label="Filter by department"></select>
+                    <span class="result-count" id="facultyResultCount"></span>
+                </div>
+            </div>
+            <div class="office-grid" id="facultyGrid"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Appointments and schedule. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="demo-note">Prototype / demo build for a class presentation. No real data is stored.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+</body>
+</html>
