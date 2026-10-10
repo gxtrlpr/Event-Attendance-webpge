@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Desk | Appointments and schedule</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a class="logo-link" href="https://ccsjdm.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the City College of San Jose del Monte website">
+                <img class="logo" src="assets/ccsjdm-seal.jpeg" alt="City College of San Jose del Monte official seal">
+            </a>
+            <span class="brand-title">Appointments and schedule</span>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="services.html">Appointments</a>
+            <a href="events.html">Events</a>
+            <a href="my-events.html">My Schedule</a>
+            <span class="nav-auth-area" id="navAuthArea"></span>
+        </nav>
+    </header>
+
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <main class="container" id="mainContent">
+
+        <section class="login-gate" id="facultyLoginGate" hidden>
+            <div class="login-card">
+                <div class="login-card-icon">&#128218;</div>
+                <h2>Professor Login Required</h2>
+                <p class="login-card-text">Log in with your Faculty ID to see the appointments students book with you.</p>
+                <button type="button" class="btn-primary btn-block" id="openFacultyLoginBtn">Professor Login</button>
+                <a href="services.html" class="btn-secondary btn-block">Browse Appointments</a>
+            </div>
+        </section>
+
+        <div class="dashboard-page" id="facultyMain" hidden>
+            <section class="dashboard-header">
+                <div>
+                    <h2>Professor Desk</h2>
+                    <p class="subtitle">Appointments students have booked with you, and their status.</p>
+                </div>
+            </section>
+
+            <section class="faculty-profile" id="facultyProfile" aria-label="Your schedule and office details"></section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">&#128197;</div>
+                    <div class="stat-info"><h3 id="facToday">0</h3><p>Today</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128339;</div>
+                    <div class="stat-info"><h3 id="facUpcoming">0</h3><p>Upcoming</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9203;</div>
+                    <div class="stat-info"><h3 id="facPending">0</h3><p>Awaiting check-in</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#9989;</div>
+                    <div class="stat-info"><h3 id="facCompleted">0</h3><p>Completed</p></div>
+                </div>
+            </div>
+
+            <section class="dashboard-section">
+                <div class="section-header-row">
+                    <h3>Appointments</h3>
+                    <div class="host-office-picker">
+                        <label for="facFilter">Show</label>
+                        <select id="facFilter">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="today">Today</option>
+                            <option value="past">Past</option>
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="schedule-list" id="facAppointmentsList" aria-live="polite"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Appointments and schedule. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="demo-note">Prototype / demo build for a class presentation. No real data is stored.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="services.js"></script>
+</body>
+</html>
